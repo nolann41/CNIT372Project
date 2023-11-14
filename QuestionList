@@ -1,0 +1,26 @@
+Sean: 
+Which genres of videos will retain the majority of the general public? 
+Knowledge from class: Analyze different genres of videos and select the videos that have more than 50% retention rate, review genres.
+Interest: optimize views for videos created by targeting a demographic
+How does video length attract viewers to watch the video?
+Knowledge from class: Analyze data among videos with different lengths, and compare viewership, identify the runtime for videos with high view count
+Interest: encourage creators to make their video a certain length  
+What time of day do most viewers tend to consume YouTube videos?
+Knowledge from class: Select the top results for time of day watched when sorting by view count 
+Interest: encourage creators to release videos at a certain time
+Aman:
+What types of advertisements (genres) generate the most amount of retention/user activity?
+Knowledge from class: Select the adplay ID,videoID, ad description and point of exit for ads with higher watch durations.
+Interest: Analyzing this data will allow for more user curated advertisements, instead of users skipping content.  
+What is the relationship between video likes and viewer retention?
+Knowledge from class: Select the video likes for the corresponding videoID while also grabbing the video duration.
+Interest: Analyzing this data will provide a context to the amount of likes and the duration that people watch said videos.
+What is the relationship between video upload frequency and audience retention for content creators?
+Knowledge: Select the count for the videos and the count for the amount of contents.
+Interest: This would be great information to motivate content creators if the correlation is positive.
+Alvin
+Was there a corelation between number of ads and the number of people who clicked off the video
+Knowledge: Select the count of ads and then the cont of overall numer of people who clicked off at a certain point when an add appeared (multiple “when” counts)
+Interest: Placement and overall dislike for ads might affect the video so this will help creators balance ad revenue and retention rate
+At what point did people like or dislike the video and did this effect if people left the video afterwards or continued to watch
+Knowledge: Select like time and when they left for each video

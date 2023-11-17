@@ -1,0 +1,171 @@
+/* Question: From which countries do the most popular and successful channels originate? */
+/* COMPLETED BY: NATE */
+
+CREATE OR REPLACE PROCEDURE GetTop100ChannelsWithCountries
+AS
+BEGIN
+    -- Use a cursor to fetch the top 100 channels
+    FOR channel_row IN (
+        SELECT channel_title, country
+        FROM GLOBAL_YT_STATS
+        ORDER BY rank
+        FETCH FIRST 100 ROWS ONLY
+    ) 
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Channel Name: ' || channel_row.channel_title || ', Country: ' || channel_row.country);
+    END LOOP;
+END;
+
+
+/* GetTop100ChannelsWithCountries Query Results
+Channel Name: T-Series, Country: India
+Channel Name: youtubemovies, Country: United States
+Channel Name: MrBeast, Country: United States
+Channel Name: Cocomelon - Nursery Rhymes, Country: United States
+Channel Name: SET India, Country: India
+Channel Name: Music, Country: 
+Channel Name: ýýý Kids Diana Show, Country: United States
+Channel Name: PewDiePie, Country: Japan
+Channel Name: Like Nastya Vlog, Country: Russia
+Channel Name: Vlad and Niki, Country: United States
+Channel Name: Zee Music Company, Country: India
+Channel Name: WWE, Country: United States
+Channel Name: Gaming, Country: 
+Channel Name: BLACKPINK, Country: South Korea
+Channel Name: goldmines, Country: 
+Channel Name: Sony SAB, Country: India
+Channel Name: 5-Minute Crafts 2.0, Country: United Kingdom
+Channel Name: BANGTANTV, Country: South Korea
+Channel Name: sports, Country: United States
+Channel Name: Justin Bieber, Country: Canada
+Channel Name: HYBE LABELS, Country: South Korea
+Channel Name: Zee TV, Country: India
+Channel Name: Pinkfong Baby Shark - Kids' Songs & Stories, Country: United States
+Channel Name: Canal KondZilla, Country: Brazil
+Channel Name: ChuChu TV Nursery Rhymes & Kids Songs, Country: India
+Channel Name: Shemaroo Filmi Gaane, Country: India
+Channel Name: Colors TV, Country: India
+Channel Name: T- SERIES BHAKTI SAGAR, Country: India
+Channel Name: Dude Perfect, Country: United States
+Channel Name: Movieclips, Country: United States
+Channel Name: Tips Official, Country: India
+Channel Name: El Reino Infantil, Country: Argentina
+Channel Name: Wave Music, Country: India
+Channel Name: Aaj Tak, Country: India
+Channel Name: Sony Music India, Country: India
+Channel Name: EminemMusic, Country: United States
+Channel Name: Marshmello, Country: United States
+Channel Name: YRF, Country: India
+Channel Name: LooLoo Kids - Nursery Rhymes and Children's ï¿½, Country: 
+Channel Name: Ed Sheeran, Country: United Kingdom
+Channel Name: Infobells - Hindi, Country: India
+Channel Name: Taylor Swift, Country: United States
+Channel Name: Ariana Grande, Country: United States
+Channel Name: BillionSurpriseToys  - Nursery Rhymes & Cartï¿½, Country: United States
+Channel Name: JuegaGerman, Country: Chile
+Channel Name: Billie Eilish, Country: United States
+Channel Name: Get Movies, Country: Russia
+Channel Name: Shemaroo, Country: India
+Channel Name: badabun, Country: 
+Channel Name: SonyMusicIndiaVEVO, Country: United States
+Channel Name: aefour, Country: Cuba
+Channel Name: badbunny, Country: 
+Channel Name: Ferfloo, Country: El Salvador
+Channel Name: Voot Kids, Country: India
+Channel Name: Felipe Neto, Country: Brazil
+Channel Name: Vocï¿½ï¿½ï¿½, Country: Brazil
+Channel Name: HAR PAL GEO, Country: Pakistan
+Channel Name: brightside, Country: 
+Channel Name: Katy Perry, Country: United States
+Channel Name: whinderssonnunes, Country: Brazil
+Channel Name: ABS-CBN Entertainment, Country: Philippines
+Channel Name: alanwalker, Country: Thailand
+Channel Name: holasoygerman. 2, Country: 
+Channel Name: Shakira, Country: Colombia
+Channel Name: ARY Digital HD, Country: Pakistan
+Channel Name: Speed Records, Country: India
+Channel Name: Masha and The Bear, Country: United States
+Channel Name: Like Nastya Show, Country: United States
+Channel Name: Rihanna, Country: Barbados
+Channel Name: Ishtar Music, Country: India
+Channel Name: Kimberly Loaiza, Country: Mexico
+Channel Name: Little Baby Bum - Nursery Rhymes & Kids Songs, Country: United States
+Channel Name: Luis Arturo Villar Sudek, Country: Mexico
+Channel Name: elrubiusOMG, Country: 
+Channel Name: Toys and colors, Country: 
+Channel Name: shfa2 - ï¿½ï¿½, Country: United Arab Emirates
+Channel Name: LUCCAS NETO- LUCCAS TOON, Country: 
+Channel Name: CarryMinati, Country: India
+Channel Name: XXXTENTACION, Country: United States
+Channel Name: Super Simple Songs - Kids Songs, Country: Canada
+Channel Name: Mikecrack, Country: Spain
+Channel Name: WorkpointOfficial, Country: Thailand
+Channel Name: GR6 EXPLODE, Country: Brazil
+Channel Name: TEDx Talks, Country: United States
+Channel Name: ýýýýýýýýýý ýýýýýý, Country: Saudi Arabia
+Channel Name: Goldmines Gaane Sune Ansune, Country: India
+Channel Name: 21 Savage, Country: United States
+Channel Name: TheEllenShow, Country: United States
+Channel Name: Sony PAL, Country: India
+Channel Name: Daddy Yankee, Country: United States
+Channel Name: Vlad vï¿½ï¿½ï, Country: United States
+Channel Name: Like Nastya ESP, Country: United States
+Channel Name: ýýýýýýýýýýýý one31, Country: Thailand
+Channel Name: Jkk Entertainment, Country: India
+Channel Name: ABP NEWS, Country: India
+Channel Name: Maria Clara & JP, Country: Brazil
+Channel Name: Bruno Mars, Country: United States
+Channel Name: Maroon 5, Country: United States
+Channel Name: Ultra Bollywood, Country: India
+Channel Name: PowerKids TV, Country: 
+*/
+
+/* Question: Are older channels significantly more successful earnings-wise than newer channels? */
+/* COMPLETED BY: NATE */
+
+CREATE OR REPLACE PROCEDURE GetAvgHighestEarningsByCreatedYear
+AS
+BEGIN
+    FOR earnings_row IN (
+        SELECT
+            EXTRACT(YEAR FROM created_year) AS created_year,
+            ROUND(AVG(highest_monthly_earn), 2) AS avg_highest_monthly_earnings,
+            ROUND(AVG(highest_yearly_earnings), 2) AS avg_highest_yearly_earnings
+        FROM GLOBAL_YT_STATS
+        GROUP BY EXTRACT(YEAR FROM created_year)
+        ORDER BY created_year
+    )
+    LOOP
+        -- Print or do something with the average earnings data
+        DBMS_OUTPUT.PUT_LINE('Year: ' || earnings_row.created_year ||
+                             ', Avg Highest Monthly Earnings: ' || earnings_row.avg_highest_monthly_earnings ||
+                             ', Avg Highest Yearly Earnings: ' || earnings_row.avg_highest_yearly_earnings);
+    END LOOP;
+END;
+
+
+/*GetAvgHighestEarningsByCreatedYear Query Results
+Year: 1970,  Avg Highest Monthly Earnings: 84400, Avg Highest Yearly Earnings: 1000000
+Year: 2005, Avg Highest Monthly Earnings: 581795.86, Avg Highest Yearly Earnings: 7001296.09
+Year: 2006, Avg Highest Monthly Earnings: 676183.31, Avg Highest Yearly Earnings: 8123616.11
+Year: 2007, Avg Highest Monthly Earnings: 661672.39, Avg Highest Yearly Earnings: 7968823.94
+Year: 2008, Avg Highest Monthly Earnings: 629133.7, Avg Highest Yearly Earnings: 7533093.39
+Year: 2009, Avg Highest Monthly Earnings: 508033.34, Avg Highest Yearly Earnings: 6072088.25
+Year: 2010, Avg Highest Monthly Earnings: 292182.45, Avg Highest Yearly Earnings: 3518038.38
+Year: 2011, Avg Highest Monthly Earnings: 408051.17, Avg Highest Yearly Earnings: 4915421.67
+Year: 2012, Avg Highest Monthly Earnings: 526064.85, Avg Highest Yearly Earnings: 6293154.69
+Year: 2013, Avg Highest Monthly Earnings: 453838.72, Avg Highest Yearly Earnings: 5419222.77
+Year: 2014, Avg Highest Monthly Earnings: 601553.22, Avg Highest Yearly Earnings: 7223349.93
+Year: 2015, Avg Highest Monthly Earnings: 469904.28, Avg Highest Yearly Earnings: 5642468.7
+Year: 2016, Avg Highest Monthly Earnings: 668412.71, Avg Highest Yearly Earnings: 8051832.27
+Year: 2017, Avg Highest Monthly Earnings: 557369.75, Avg Highest Yearly Earnings: 6689161.44
+Year: 2018, Avg Highest Monthly Earnings: 507319.96, Avg Highest Yearly Earnings: 6079113.5
+Year: 2019, Avg Highest Monthly Earnings: 521242.03, Avg Highest Yearly Earnings: 6270468.88
+Year: 2020, Avg Highest Monthly Earnings: 1986075.07, Avg Highest Yearly Earnings: 23844150.02
+Year: 2021, Avg Highest Monthly Earnings: 1118292.52, Avg Highest Yearly Earnings: 13430605.32
+Year: 2022, Avg Highest Monthly Earnings: 16227.2, Avg Highest Yearly Earnings: 194626.27
+Year: , Avg Highest Monthly Earnings: 0, Avg Highest Yearly Earnings: 0
+
+
+PL/SQL procedure successfully completed.
+*/

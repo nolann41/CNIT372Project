@@ -1,18 +1,20 @@
 
 Introductions and Problem Description:
-The members of our group are Alvin Li, Nate Nolan, and Sean Huynh. We have chosen to pursue option A: viewing YouTube from the perspective of a content consumer. 
-We selected this option because we all shared the experience of consuming YouTube content in the past. Therefore we could perhaps relate better to the average consumer and know what
-information is important to them compared to the perspectives of journalists or content creators. Important Data: One important piece of data to decipher the interests of content
-consumers is the genre of each video. This will be vital in determining what types of videos each consumer is drawn to. Another piece of data we plan to use extensively is average
-watch time per video, which will help decipher the video-watching habits of consumers. Other important information would be how often the consumer sits through the entirety of ads
-as well as the types of ads they watch.. This data would illustrate how many and what kind of advertisements consumers are generally willing to watch which could improve the overall
-viewing experience. This can further be divided in when and what times users will tend to skip or exit the video, determining which portions of the video were wathed more or less than
-others. This could also include, like above, ads pertaining to sponsors and sections dedicated to intros, outros, and shoutouts. 
+The members of our group are Alvin Li, Nate Nolan, and Sean Huynh. We have chosen to pursue option B: viewing YouTube data from the perspective of a content creator. 
+We selected this option because we know that there is a surplus of information and details that YouTube provides to its creators in order to help supplement their content. That data
+is collected specifically for the use of creators, so taking the perspective of the content creator for this project seemed to be the easiest option.
+
+Important Data: One important piece of data to decipher what is important to creators is the genre of their videos.  This will be vital in determining what types of videos each consumer is drawn to
+and which videos creators are more willing to make as a results. Another piece of data we plan to use extensively is average views per video, which will help decipher the video-watching habits of consumers.
+This would be helpful to a creator because it could help influence them in how long they make their videos in order to maximize viewer retention. Another useful piece of data could be the countries in which the most 
+popular channels originate. This could help a creator to understand which demographics they should cater to in order to earn the most viewership. For instance, if a channel is looking into dubbing their content into 
+another language, knowing which language that the most popular creators speak would certainly be helpful in making the decision of which language to dub to first. Another useful statistic that aspiring conent creators 
+could use would be the video upload frequency of the most successful channels. This would be useful in determining one's own schedule for uploading content that not only works for them but also will generate the
+most viewership.
 
 Database Schema:
-The database will be made up of multiple tables. Our main table will be the Videos table, where there will be information such as video ID (number, not null), video name(varchar2), 
-video description(varchar2), video length(number), genreID(number), upload date (date), and likes (int). We are going to have a table that contains information that pertains to the 
-genre of each video. This will contain genre names (varchar2), genre descriptions (varchar2), genre IDs (number, not null). We will have a table for watch duration, which will list 
-video IDs, duration length(number), point of skip (number), and point of exit (number) We will have a table pertaining to ads, which will act as a record for how many times an ad is
-shown. Each occurrence will have an adplay ID (number, not null), an ad description (varchar2), and ad duration (number). These tables will allow for us to address the questions that
-our study is focused on, as well as make sure that the tables are interlinked and can be used together. 
+The database will be made up of two tables. One table will be named YT_VIDEO_STATS, the other will be named GLOBAL_YT_STATS. Each table representing a different source of data provided. YT_VIDEO_STATS
+will ahve a focus on videos, containing attributes such as title (VARCHAR2), published_date(DATE), likes(NUMBER), comments(NUMBER), and views(NUMBER). The other tables, GLOBAL_YT_STATS
+will instead focus on the creators themselves and their channels. Contained in this table will include the channels' subscriber count(NUMBER), rank(NUMBER), total views(NUMBER), name(VARCHAR2), earnings(NUMBER),
+country(VARCHAR2), and varuous other useful statistics.
+

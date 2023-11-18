@@ -169,3 +169,111 @@ Year: , Avg Highest Monthly Earnings: 0, Avg Highest Yearly Earnings: 0
 
 PL/SQL procedure successfully completed.
 */
+
+/* Question: How does overall video uploads affect total? */
+/* COMPLETED BY: SEAN */
+
+create or replace procedure lifetime_uploads_views IS
+
+    v_uploadcount GLOBAL_YT_STATS.UPLOAD_COUNT%TYPE; 
+    v_videoviews GLOBAL_YT_STATS.VIDEO_VIEWS%TYPE;
+    v_channelname GLOBAL_YT_STATS.CHANNEL_TITLE%TYPE;
+    v_averageviews GLOBAL_YT_STATS.VIDEO_VIEWS%TYPE;
+
+begin 
+
+FOR channel IN (
+        SELECT CHANNEL_TITLE,VIDEO_VIEWS, UPLOAD_COUNT 
+        FROM GLOBAL_YT_STATS
+    )
+    LOOP
+        v_channelname := channel.CHANNEL_TITLE;
+        v_videoviews := channel.VIDEO_VIEWS; 
+        v_uploadcount := channel.UPLOAD_COUNT; 
+
+        IF v_uploadcount > 1 THEN 
+            v_averageviews := v_videoviews / v_uploadcount;
+        END IF;
+        
+        v_averageviews := ROUND(v_averageviews, 1);
+
+
+        IF v_averageviews > 1000000 THEN
+            dbms_output.put_line('Channel: ' || v_channelname || '     Average Views: ' || v_averageviews);
+        END IF;
+
+    END LOOP;
+
+
+
+END lifetime_uploads_views;
+
+/*Query Results
+
+Channel: Toys and colors     Average Views: 11751263289
+Channel: wowkidz     Average Views: 8306720739.5
+Channel: ToyPudding TV[ï¿½ï¿½ï¿½ï¿½ï     Average Views: 7958441114
+Channel: TalkingTom     Average Views: 7599665083
+Channel: drake     Average Views: 5106298372.7
+Channel: Desi music factory     Average Views: 5094513727.5
+Channel: TG MAYANK YT     Average Views: 3881038506
+Channel: Claudio     Average Views: 3677597002.3
+Channel: salman Noman     Average Views: 3464345967.3
+Channel: zuni and family     Average Views: 3373134729
+Channel: ali-a     Average Views: 3074151634
+Channel: LooLoo Kids - Nursery Rhymes and Children's ï¿½     Average Views: 2937493749
+Channel: Extra polinesios     Average Views: 2406563752
+Channel: T- SERIES BHAKTI SAGAR     Average Views: 2271786948.3
+Channel: Masha y El oso     Average Views: 2262857121
+Channel: jamuna tv24     Average Views: 2021597175.8
+Channel: Ti Ti     Average Views: 1884312866.3
+Channel: TrapCity     Average Views: 1709843282
+Channel: alanwalker     Average Views: 1610533097.3
+Channel: MrBeastGaming     Average Views: 1266266509.4
+Channel: Dorukhan Gï¿½ï¿½ï     Average Views: 1245514602.1
+Channel: 21 Savage     Average Views: 1236263983.6
+Channel: straykids     Average Views: 1121410162.3
+Channel: Michael Jackson     Average Views: 960831641.7
+Channel: Adele     Average Views: 946607201.1
+
+
+PL/SQL procedure successfully completed.
+*/
+
+/* Question: How do keywords affect view count? */
+/* COMPLETED BY: SEAN */
+
+create or replace PROCEDURE keywords_popular
+IS
+    CURSOR popularCursor IS 
+        SELECT KEYWORD, COUNT(*) AS keywords_CNT
+        FROM YT_VIDEO_STATS 
+        GROUP BY KEYWORD
+        ORDER BY keywords_CNT DESC
+        FETCH FIRST 5 ROWS ONLY;
+
+BEGIN
+
+dbms_output.put_line('Popular Keywords:');
+
+FOR popular_keywords IN popularCursor LOOP
+        dbms_output.put_line('Keyword: ' || popular_keywords.KEYWORD || '      Number of Occurrences: ' || popular_keywords.keywords_CNT);
+    END LOOP;
+
+END;
+/*Query Results
+
+Popular Keywords:
+Keyword: cubes      Number of Occurrences: 50
+Keyword: minecraft      Number of Occurrences: 50
+Keyword: asmr      Number of Occurrences: 50
+Keyword: data science      Number of Occurrences: 50
+Keyword: game development      Number of Occurrences: 50
+
+
+PL/SQL procedure successfully completed.
+
+
+*/
+
+

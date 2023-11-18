@@ -1,18 +1,18 @@
-Which genres of videos will retain the majority of the general public? 
-Knowledge from class: Analyze different genres of videos and select the videos that have more than 50% retention rate, review genres.
-Interest: optimize views for videos created by targeting a demographic
+What is the connection with date published and a high like/view ratio? 
+Knowledge from class: Analyze videos with a high like to view ratio and find the most prevalant months.
+Interest: Target video uploads toward a specific month
 
-How does video length attract viewers to watch the video?
-Knowledge from class: Analyze data among videos with different lengths, and compare viewership, identify the runtime for videos with high view count
-Interest: encourage creators to make their video a certain length  
+How does overall video uploads affect total?
+Knowledge from class: Analyze data among channels and total uploads, and , identify the runtime for videos with high view count
+Interest: encourage creators to post more/less
 
-What time of day do most viewers tend to consume YouTube videos?
-Knowledge from class: Select the top results for time of day watched when sorting by view count 
-Interest: encourage creators to release videos at a certain time
+Which keywords bring in more views?
+Knowledge from class: Select keywords and the average view count for each keyword.
+Interest: encourage creators to include specific keywords 
 
-What types of advertisements (genres) generate the most amount of retention/user activity?
-Knowledge from class: Select the adplay ID,videoID, ad description and point of exit for ads with higher watch durations.
-Interest: Analyzing this data will allow for more user curated advertisements, instead of users skipping content.
+What is the relationship between recent and legacy success?
+Knowledge from class: Compare 30 days data and all time data, find ratio and compare to other channels
+Interest: Study highly ranked channels and adapt accordingly to find longevity
 
 What is the relationship between video likes and viewer retention?
 Knowledge from class: Select the video likes for the corresponding videoID while also grabbing the video duration.

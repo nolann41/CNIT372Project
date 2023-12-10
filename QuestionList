@@ -2,32 +2,13 @@ What is the connection with date published and a high like/view ratio? (Alvin -C
 Knowledge from class: Analyze videos with a high like to view ratio and find the most prevalant months.
 Interest: Target video uploads toward a specific month
 
-How does overall video uploads affect total? (Sean - Completed)
-Knowledge from class: Analyze data among channels and total uploads, and , identify the runtime for videos with high view count
+How do overall video uploads affect total success? (Sean - Completed)
+Knowledge from class: Analyze data among channels and total uploads, and, identify the runtime for videos with a high view count
 Interest: encourage creators to post more/less
 
 Which keywords bring in more views? (Sean - Completed)
 Knowledge from class: Select keywords and the average view count for each keyword.
 Interest: encourage creators to include specific keywords 
-
-What is the relationship between recent and legacy success?
-Knowledge from class: Compare 30 days data and all time data, find ratio and compare to other channels
-Interest: Study highly ranked channels and adapt accordingly to find longevity
-
-What is the relationship between video likes and viewer retention?
-Knowledge from class: Select the video likes for the corresponding videoID while also grabbing the video duration.
-Interest: Analyzing this data will provide a context to the amount of likes and the duration that people watch said videos.
-
-What is the relationship between video upload frequency and audience retention for content creators?
-Knowledge: Select the count for the videos and the count for the amount of contents.
-Interest: This would be great information to motivate content creators if the correlation is positive.
-
-Was there a corelation between number of ads and the number of people who clicked off the video
-Knowledge: Select the count of ads and then the cont of overall numer of people who clicked off at a certain point when an add appeared (multiple “when” counts)
-Interest: Placement and overall dislike for ads might affect the video so this will help creators balance ad revenue and retention rate
-
-At what point did people like or dislike the video and did this effect if people left the video afterwards or continued to watch
-Knowledge: Select like time and when they left for each video
 
 From which countries do the most popular and successful channels originate? (NATE - COMPLETED)
 Knowledge: Select the country nd channel name and rank of the 100 highest ranked channels. 
@@ -37,5 +18,27 @@ Are older channels significantly more successful earnings-wise than newer channe
 Knowledge: Select and group by the creation year of channels. Also select the average highest monthly and yearly earning amongst that group.
 Interest: When making the decision to create a channel, knowing that if newer channels even have the ability of being successful compared to older channels would be useful
 in determining if you still want to give content creation on YouTube a go.
+
+What is the relationship between recent and legacy success? (SEAN - COMPLETED)
+Knowledge from class: Compare 30 days data and all time data, find ratio and compare to other channels
+Interest: Study highly ranked channels and adapt accordingly to find longevity
+
+What is the relationship between video likes and viewer retention? (SEAN - COMPLETED) 
+Knowledge from class: Select the video likes for the corresponding videoID while also grabbing the video duration.
+Interest: Analyzing this data will provide a context to the amount of likes and the duration that people watch said videos.
+
+Question 8
+Knowledge: 
+Interest: 
+
+Question 9
+Knowledge: 
+Interest: 
+
+Question 10 
+Knowledge:
+Interest: 
+
+
 
 

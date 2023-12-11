@@ -276,53 +276,142 @@ PL/SQL procedure successfully completed.
 
 */
 
-/* Question: What is the connection with date published and a high like/view ratio? */
-/* COMPLETED BY: Alvin */
+/* Question: What is the relationship between recent and legacy success? */
+/* COMPLETED BY: Sean */
 
-Create or replace Procedure MostPopularMonth
-as
-begin
-    for month_popularity in(
-    select
-        extract(month from PUBLISHED_DATE) as published_month,
-        round(sum(views), 2) as total_month_views,
-        round(sum(likes), 2) as total_month_likes,
-        round(sum(views) / sum(likes), 1) as view_to_like_ratio
-        
-    from yt_video_stats
-    group by extract(month from PUBLISHED_DATE)
-    order by view_to_like_ratio desc
+create or replace procedure recent_legacy_success IS
+
+    v_views30 GLOBAL_YT_STATS.VIDEO_VIEWS_LAST30%TYPE;
+    v_videoviews GLOBAL_YT_STATS.VIDEO_VIEWS%TYPE;
+    v_subscribers GLOBAL_YT_STATS.SUBSCRIBERS%TYPE;
+    v_subscribers30 GLOBAL_YT_STATS.SUBSCRIBERS_LAST30%TYPE;
+    v_viewratio GLOBAL_YT_STATS.VIDEO_VIEWS%TYPE;
+    v_subratio GLOBAL_YT_STATS.SUBSCRIBERS%TYPE;
+    v_youtuber GLOBAL_YT_STATS.YOUTUBER_NAME%TYPE;
+
+begin 
+
+FOR channel IN (
+        SELECT YOUTUBER_NAME, SUBSCRIBERS, VIDEO_VIEWS, SUBSCRIBERS_LAST30, VIDEO_VIEWS_LAST30 
+        FROM GLOBAL_YT_STATS
     )
-    loop
-        -- Print or do something with the average earnings data
-        DBMS_OUTPUT.PUT_LINE('Month: ' || month_popularity.published_month || 
-                             ' Views: ' || month_popularity.total_month_views ||
-                             ' Likes: ' || month_popularity.total_month_likes ||
-                             ' Views/Like Ratio: ' || month_popularity.view_to_like_ratio);
-    end loop;
-end;
+    LOOP
+        v_subscribers := channel.SUBSCRIBERS; 
+        v_subscribers30 := channel.SUBSCRIBERS_LAST30; 
+        v_videoviews := channel.VIDEO_VIEWS; 
+        v_views30 := channel.VIDEO_VIEWS_LAST30;
+        v_youtuber := channel.YOUTUBER_NAME;
+
+        IF v_subscribers > 10 THEN 
+            v_viewratio := v_videoviews / v_views30;
+            v_subratio := v_subscribers / v_subscribers30;
+        END IF;
+
+        v_viewratio := ROUND(v_viewratio, 1);
+        v_subratio := ROUND(v_subratio, 1); 
+
+
+        IF v_viewratio > 1000000 OR v_subratio > 1000000 THEN
+            dbms_output.put_line('Channel: ' || v_youtuber || '     View Ratio: ' || v_viewratio || '         Sub Ratio:' || v_subratio );
+        END IF;
+
+    END LOOP;
+
+
+
+END recent_legacy_success;
+
 
 /*Query Results
 
-Month: 4 Views: 5247248618 Likes: 39674243 Views/Like Ratio: 132.3
-Month: 9 Views: 1790033769 Likes: 18542349 Views/Like Ratio: 96.5
-Month: 6 Views: 2894118169 Likes: 34842279 Views/Like Ratio: 83.1
-Month: 1 Views: 1941893941 Likes: 23637575 Views/Like Ratio: 82.2
-Month: 12 Views: 1383418681 Likes: 18707860 Views/Like Ratio: 73.9
-Month: 2 Views: 737200159 Likes: 13199484 Views/Like Ratio: 55.9
-Month: 5 Views: 1236222984 Likes: 23820866 Views/Like Ratio: 51.9
-Month: 10 Views: 786424794 Likes: 15691071 Views/Like Ratio: 50.1
-Month: 3 Views: 1282251662 Likes: 26601082 Views/Like Ratio: 48.2
-Month: 11 Views: 1283435425 Likes: 28394600 Views/Like Ratio: 45.2
-Month: 7 Views: 1269908491 Likes: 30726851 Views/Like Ratio: 41.3
-Month: 8 Views: 1380297914 Likes: 37557319 Views/Like Ratio: 36.8
+Channel: Badabun     View Ratio: 44086467.5         Sub Ratio:624000
+Channel: A4     View Ratio: 244006710.8         Sub Ratio:4630000
+Channel: Bad Bunny     View Ratio: 30686342319         Sub Ratio:
+Channel: BRIGHT SIDE     View Ratio:          Sub Ratio:44500000
+Channel: Alan Walker     View Ratio: 585648399         Sub Ratio:
+Channel: HolaSoyGerman.     View Ratio: 1207827811.3         Sub Ratio:
+Channel: Toys and Colors     View Ratio: 9401010631.2         Sub Ratio:
+Channel: LUCCAS NETO - LUCCAS TOON     View Ratio: 11151273541         Sub Ratio:
+Channel: One Direction     View Ratio: 2142234.4         Sub Ratio:382000
+Channel: MrBeast Gaming     View Ratio: 197854142.1         Sub Ratio:36100000
+Channel: Total Gaming     View Ratio: 104837060.9         Sub Ratio:17700000
+Channel: Techno Gamerz     View Ratio: 112680228.7         Sub Ratio:11466666.7
+Channel: WowKidz     View Ratio: 16613441479         Sub Ratio:
+Channel: YOLO AVENTURAS     View Ratio: 2695360.7         Sub Ratio:312000
+Channel: Frost Diamond     View Ratio:          Sub Ratio:5016666.7
+Channel: Masha y el Oso     View Ratio: 6788571363         Sub Ratio:
+Channel: Drake     View Ratio: 494157907         Sub Ratio:28100000
+Channel: Sandeep Maheshwari     View Ratio:          Sub Ratio:27800000
+Channel: MrBeast 2     View Ratio: 7014762.9         Sub Ratio:
+Channel: ToyPuddingTV     View Ratio: 1136920159.1         Sub Ratio:
+Channel: Goldmines     View Ratio: 1339901698.9         Sub Ratio:
+Channel: 5-Minute Crafts     View Ratio: 26236790209         Sub Ratio:
+Channel: T-Series Bhakti Sagar     View Ratio: 2953323032.8         Sub Ratio:
+Channel: LooLoo Kids - Nursery Rhymes and Children's Songs     View Ratio: 203222838         Sub Ratio:
+Channel: Cardi B     View Ratio: 1090632884         Sub Ratio:
+Channel: CKN     View Ratio: 120545462.4         Sub Ratio:18700000
+Channel: Ali-A     View Ratio: 6148303268         Sub Ratio:
+Channel: Dhar Mann     View Ratio:          Sub Ratio:9200000
+Channel: Ajay Sharma     View Ratio:          Sub Ratio:18100000
+Channel: And TV     View Ratio: 3853083251.3         Sub Ratio:
+Channel: Zuni and Family     View Ratio: 1686567364.5         Sub Ratio:
+Channel: Jason Vlogs     View Ratio: 356145899.2         Sub Ratio:
+Channel: deepesh zo     View Ratio: 7206462713         Sub Ratio:16800000
+Channel: Salman Noman     View Ratio: 1484719700.3         Sub Ratio:1670000
+Channel: Alfredo Larin     View Ratio: 14431830557         Sub Ratio:
+Channel: Marï¿½ï¿½ï¿½ï¿½ï¿½     View Ratio: 6199178137.3         Sub Ratio:8666666.7
+Channel: Fede Vigevani     View Ratio:          Sub Ratio:12800000
+Channel: ZHC     View Ratio: 136345854.4         Sub Ratio:6375000
+Channel: ABPLIVE     View Ratio: 3984181690.5         Sub Ratio:
+Channel: Goldmines Movies     View Ratio: 1884312866.3         Sub Ratio:
+Channel: FaZe Rug     View Ratio:          Sub Ratio:23700000
+Channel: Alan Becker     View Ratio:          Sub Ratio:22900000
+Channel: Smile Family     View Ratio: 11787524         Sub Ratio:2230000
+Channel: Disney Latinoamï¿½ï¿½     View Ratio: 4377531.6         Sub Ratio:
+Channel: Rotana     View Ratio: 1828526.3         Sub Ratio:218000
+Channel: Netflix India     View Ratio: 19070917.1         Sub Ratio:
+Channel: SMOL     View Ratio: 7355194004.7         Sub Ratio:
+Channel: invictor     View Ratio: 171625341.3         Sub Ratio:5375000
+Channel: YOLO     View Ratio:          Sub Ratio:4280000
+Channel: Zach King     View Ratio: 43281317.5         Sub Ratio:2070000
+Channel: Deddy Corbuzier     View Ratio: 58306942.3         Sub Ratio:20600000
+Channel: Linkin Park     View Ratio:          Sub Ratio:1700000
+Channel: Marvel Entertainment     View Ratio: 89439608.3         Sub Ratio:670000
+Channel: SCTV     View Ratio: 29192488.6         Sub Ratio:
+Channel: AS Gaming     View Ratio: 123957583.9         Sub Ratio:
+Channel: Masha e o Urso     View Ratio:          Sub Ratio:9450000
+Channel: NOBRU     View Ratio: 175881662         Sub Ratio:14400000
+Channel: SIS vs BRO     View Ratio: 66418405.3         Sub Ratio:1420000
+Channel: The Dodo     View Ratio: 1382369.1         Sub Ratio:2840000
+Channel: Trap City     View Ratio: 34894760.9         Sub Ratio:14100000
+Channel: Jamuna TV     View Ratio: 12129583055         Sub Ratio:
+Channel: Desi Gamers     View Ratio: 427039047.8         Sub Ratio:
+Channel: JULIA GISELLA     View Ratio: 3331351.6         Sub Ratio:103846.2
+Channel: The Q     View Ratio: 1435404171.7         Sub Ratio:13400000
+Channel: Stray Kids     View Ratio: 1682115243.5         Sub Ratio:13300000
+Channel: AdMe     View Ratio: 1122170225.8         Sub Ratio:
+Channel: ExtraPolinesios     View Ratio: 9437504.9         Sub Ratio:16200000
+Channel: FitDance     View Ratio: 9136167.6         Sub Ratio:4025000
+Channel: Enes Batur     View Ratio:          Sub Ratio:1454545.5
+Channel: ýýýýýýýýýý     View Ratio:          Sub Ratio:1590000
+Channel: Mr DegrEE     View Ratio:          Sub Ratio:1550000
+Channel: Musas     View Ratio: 27907413.5         Sub Ratio:
+Channel: Republic Bharat     View Ratio: 7551195.5         Sub Ratio:
+Channel: Bayashi TV     View Ratio: 3478247.4         Sub Ratio:1655555.6
+Channel: Ryan Trahan     View Ratio: 8801014         Sub Ratio:13100000
+Channel: Knowledge Tv ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½     View Ratio: 968291352         Sub Ratio:
+Channel: DJ Khaled     View Ratio: 17514038.9         Sub Ratio:4366666.7
+Channel: Jomy Production     View Ratio: 2528581628         Sub Ratio:
+Channel: Wolfoo Channel     View Ratio: 511098         Sub Ratio:1625000
+Channel: Ian Lucas     View Ratio: 30226553         Sub Ratio:1587500
+Channel: Jass Records     View Ratio: 5958994201         Sub Ratio:
+Channel: Troom Troom Indonesia     View Ratio: 5379684248         Sub Ratio:
+Channel: ANNA KOVA     View Ratio: 6979793154         Sub Ratio:
 
 
 PL/SQL procedure successfully completed.
 
-
 */
-
 
 
 

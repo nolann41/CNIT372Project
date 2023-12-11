@@ -413,6 +413,87 @@ PL/SQL procedure successfully completed.
 
 */
 
+/* Question: What is the connection with date published and a high like/view ratio? */
+/* COMPLETED BY: Alvin */
 
+Create or replace Procedure MostPopularMonth
+as
+begin
+    for month_popularity in(
+    select
+        extract(month from PUBLISHED_DATE) as published_month,
+        round(sum(views), 2) as total_month_views,
+        round(sum(likes), 2) as total_month_likes,
+        round(sum(views) / sum(likes), 1) as view_to_like_ratio
+
+    from yt_video_stats
+    group by extract(month from PUBLISHED_DATE)
+    order by view_to_like_ratio desc
+    )
+    loop
+        -- Print or do something with the average earnings data
+        DBMS_OUTPUT.PUT_LINE('Month: ' || month_popularity.published_month || 
+                             ' Views: ' || month_popularity.total_month_views ||
+                             ' Likes: ' || month_popularity.total_month_likes ||
+                             ' Views/Like Ratio: ' || month_popularity.view_to_like_ratio);
+    end loop;
+end;
+
+/*Query Results
+
+Month: 4 Views: 5247248618 Likes: 39674243 Views/Like Ratio: 132.3
+Month: 9 Views: 1790033769 Likes: 18542349 Views/Like Ratio: 96.5
+Month: 6 Views: 2894118169 Likes: 34842279 Views/Like Ratio: 83.1
+Month: 1 Views: 1941893941 Likes: 23637575 Views/Like Ratio: 82.2
+Month: 12 Views: 1383418681 Likes: 18707860 Views/Like Ratio: 73.9
+Month: 2 Views: 737200159 Likes: 13199484 Views/Like Ratio: 55.9
+Month: 5 Views: 1236222984 Likes: 23820866 Views/Like Ratio: 51.9
+Month: 10 Views: 786424794 Likes: 15691071 Views/Like Ratio: 50.1
+Month: 3 Views: 1282251662 Likes: 26601082 Views/Like Ratio: 48.2
+Month: 11 Views: 1283435425 Likes: 28394600 Views/Like Ratio: 45.2
+Month: 7 Views: 1269908491 Likes: 30726851 Views/Like Ratio: 41.3
+Month: 8 Views: 1380297914 Likes: 37557319 Views/Like Ratio: 36.8
+
+
+PL/SQL procedure successfully completed.
+
+
+*/
+
+/* Question: What is the relationship between video likes and length of video title? */
+/* COMPLETED BY: Sean */
+
+CREATE OR REPLACE PROCEDURE compare_lengthtitle_likes AS
+BEGIN
+    FOR vid_title IN (
+        SELECT LENGTH(TITLE) length, LIKES
+        FROM YT_VIDEO_STATS
+        ORDER BY LIKES DESC
+        FETCH FIRST 10 ROWS ONLY
+    ) 
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Video Name Length: ' || vid_title.length || ', Like Count: ' || vid_title.LIKES);
+    END LOOP;
+END;
+
+/*Query Results
+
+Video Name Length: 25, Like Count: 
+Video Name Length: 32, Like Count: 
+Video Name Length: 75, Like Count: 16445558
+Video Name Length: 33, Like Count: 14259033
+Video Name Length: 40, Like Count: 11025176
+Video Name Length: 73, Like Count: 7786057
+Video Name Length: 51, Like Count: 6823113
+Video Name Length: 43, Like Count: 6177588
+Video Name Length: 29, Like Count: 6055504
+Video Name Length: 41, Like Count: 5743875
+
+
+PL/SQL procedure successfully completed.
+
+
+
+*/
 
 

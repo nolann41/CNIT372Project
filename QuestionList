@@ -23,9 +23,9 @@ What is the relationship between recent and legacy success? (SEAN - COMPLETED)
 Knowledge from class: Compare 30 days data and all time data, find ratio and compare to other channels
 Interest: Study highly ranked channels and adapt accordingly to find longevity
 
-What is the relationship between video likes and viewer retention? (SEAN - COMPLETED) 
-Knowledge from class: Select the video likes for the corresponding videoID while also grabbing the video duration.
-Interest: Analyzing this data will provide a context to the amount of likes and the duration that people watch said videos.
+What is the relationship between video likes and length of video title? (SEAN - COMPLETED) 
+Knowledge from class: Select the character count of the video title and amount of likes for the corresponding video.
+Interest: Analyzing this data will provide a context to the amount of likes and the title of videos.
 
 Question 8
 Knowledge: 

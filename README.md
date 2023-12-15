@@ -1,17 +1,4 @@
 # CNIT372Project
+Data Insertion Instructions: In order to insert all of the relevant data that we used into appropriately, please navigate to the data_insert file. Run this file in Oracle SQLDeveloper and all of the data we used should be inserted correctly into the accurate tables. You should have three new tables after running it: GLOBAL_YT_STATS, YT_VIDEO_STATS, and GLOBAL_YT_STATS_MISC.
 
-Milestone 3: Your Solutions to half of the questions. (30)
-
-Set up a GitHub repository and manage your teamwork there.
-You will label all the questions that can be answered by the knowledge you have learned
-in this course so far and provide your solutions to those questions.
-You will submit:
-- A link to your GitHub repository.
-- In your repository, there should be
-
-a. A script for importing data into an empty database.
-b. The project description from Milestone 1 and the question list from Milestone 2
-c. The solutions you have implemented, labeled by the corresponding questions.
-
-- Describe your teamwork: how did you come up with the 10 questions, list the
-contribution of each team member
+Running Question Procedures: All questions we answered can be found in the QuestionList document. The code used to retrieve the data relevant to the questions, as well as the query results, can be found in CompletedQuestions. To retrieve the data for the questions yourself, first copy CompletedQuestions into Oracle SQLDeveloper. You'll notice that after every procedure creation, there is a commented out execute statement. Do not uncomment these until after you have ran the code to compile all the procedures at least once. Once you have ran the code, uncomment the corresponding execute statement for whichever procedure you want to see that data for. It is reccommended but not necessary that you comment out all other lines of code besides the relevant execute statement.

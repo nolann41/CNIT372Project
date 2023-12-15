@@ -16,6 +16,7 @@ BEGIN
     END LOOP;
 END;
 
+/*execute GetTop100ChannelsWithCountries;*/
 
 /* GetTop100ChannelsWithCountries Query Results
 Channel Name: T-Series, Country: India
@@ -143,6 +144,7 @@ BEGIN
     END LOOP;
 END;
 
+/*execute GetAvgHighestEarningsByCreatedYear;*/
 
 /*GetAvgHighestEarningsByCreatedYear Query Results
 Year: 1970,  Avg Highest Monthly Earnings: 84400, Avg Highest Yearly Earnings: 1000000
@@ -208,6 +210,8 @@ FOR channel IN (
 
 END lifetime_uploads_views;
 
+/*execute lifetime_uploads_views;*/
+
 /*Query Results
 
 Channel: Toys and colors     Average Views: 11751263289
@@ -261,6 +265,9 @@ FOR popular_keywords IN popularCursor LOOP
     END LOOP;
 
 END;
+
+/*execute keywords_popular;*/
+
 /*Query Results
 
 Popular Keywords:
@@ -321,6 +328,7 @@ FOR channel IN (
 
 END recent_legacy_success;
 
+/*execute recent_legacy_success;*/
 
 /*Query Results
 
@@ -439,6 +447,8 @@ begin
     end loop;
 end;
 
+/*execute MostPopularMonth;*/
+
 /*Query Results
 
 Month: 4 Views: 5247248618 Likes: 39674243 Views/Like Ratio: 132.3
@@ -475,6 +485,8 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('Video Name Length: ' || vid_title.length || ', Like Count: ' || vid_title.LIKES);
     END LOOP;
 END;
+
+/*execute compare_lengthtitle_likes;*/
 
 /*Query Results
 
@@ -541,6 +553,8 @@ BEGIN
     END LOOP;
 END;
 
+/*execute CalculateAverageViewsByTitleLengthRange;*/
+
 /* Query Results
 Title Length Range: 1-10, Rounded Average Views: 13764076.8
 Title Length Range: 11-20, Rounded Average Views: 12731974.8
@@ -581,6 +595,8 @@ BEGIN
                              ', Population: ' || r.country_population || ', Urban Population: ' || r.country_urban_pop);
     END LOOP;
 END;
+
+/*execute CalculateAverageSubscribersByCountry;*/
 
 /* Query Results
 Country: Afghanistan, Average Subscribers: 20400000, Population: 38041754, Urban Population: 9797273

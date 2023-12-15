@@ -1,3 +1,4 @@
+
 CREATE TABLE YT_VIDEO_STATS(
     title varchar2(100),
     published_date date,
@@ -37,11 +38,11 @@ CREATE TABLE GLOBAL_YT_STATS (
     lon number
 );
 
-CREATE TABLE TABLE_NAME3 (
-);
+ALTER TABLE GLOBAL_YT_STATS
+ADD CONSTRAINT pk_youtuber_name PRIMARY KEY (youtuber_name);
 
 
-/* Insert GLOBAL stats */
+Insert GLOBAL stats
 
 SET DEFINE OFF
 
@@ -8680,4 +8681,27 @@ VALUES ('What is Machine Learning?', to_date('1/11/2017', 'MM/DD/YYYY'), 'machin
 
 INSERT INTO YT_VIDEO_STATS (TITLE, PUBLISHED_DATE, KEYWORD, LIKES, COMMENTS, VIEWS) 
 VALUES ('Don&#39;t learn machine learning', to_date('3/30/2020', 'MM/DD/YYYY'), 'machine learning', NULL, NULL, NULL);
+
+
+CREATE TABLE GLOBAL_YT_STATS_MISC AS
+SELECT youtuber_name, unemployment_rate, lat, lon, country_rank
+FROM GLOBAL_YT_STATS;
+
+ALTER TABLE GLOBAL_YT_STATS_MISC
+ADD CONSTRAINT pk_youtuber_name_misc PRIMARY KEY (youtuber_name);
+
+ALTER TABLE GLOBAL_YT_STATS
+DROP COLUMN unemployment_rate;
+ALTER TABLE GLOBAL_YT_STATS
+DROP COLUMN lat;
+ALTER TABLE GLOBAL_YT_STATS
+DROP COLUMN lon;
+ALTER TABLE GLOBAL_YT_STATS
+DROP COLUMN country_rank;
+
+
+ALTER TABLE GLOBAL_YT_STATS_MISC
+ADD CONSTRAINT fk_youtuber_name
+FOREIGN KEY (youtuber_name)
+REFERENCES GLOBAL_YT_STATS(youtuber_name);
 

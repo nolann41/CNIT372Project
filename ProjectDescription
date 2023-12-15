@@ -13,8 +13,9 @@ could use would be the video upload frequency of the most successful channels. T
 most viewership.
 
 Database Schema:
-The database will be made up of two tables. One table will be named YT_VIDEO_STATS, the other will be named GLOBAL_YT_STATS. Each table representing a different source of data provided. YT_VIDEO_STATS
+The database will be made up of three tables. One table will be named YT_VIDEO_STATS, another will be named GLOBAL_YT_STATS, and the final will be named GLOBAL_YT_STATS_MISC. YT_VIDEO_STATS
 will ahve a focus on videos, containing attributes such as title (VARCHAR2), published_date(DATE), likes(NUMBER), comments(NUMBER), and views(NUMBER). The other tables, GLOBAL_YT_STATS
 will instead focus on the creators themselves and their channels. Contained in this table will include the channels' subscriber count(NUMBER), rank(NUMBER), total views(NUMBER), name(VARCHAR2), earnings(NUMBER),
-country(VARCHAR2), and varuous other useful statistics.
+country(VARCHAR2), and varuous other useful statistics. GLOBAL_YT_STATS_MISC will help differentiate data by taking some of the less relevant columns that could be placed in GLOBAL_YT_STATS and containing them 
+all in one place.
 

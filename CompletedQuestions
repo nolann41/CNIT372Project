@@ -491,9 +491,146 @@ Video Name Length: 41, Like Count: 5743875
 
 
 PL/SQL procedure successfully completed.
-
-
-
 */
 
+/* Question: Is there a realtionship between video title length and number of views? */
+/* COMPLETED BY: Nate */
+
+CREATE OR REPLACE PROCEDURE CalculateAverageViewsByTitleLengthRange
+IS
+BEGIN
+    -- Query to group by title length range and calculate rounded average views
+    FOR r IN (
+        SELECT
+            CASE
+                WHEN LENGTH(title) BETWEEN 1 AND 10 THEN '1-10'
+                WHEN LENGTH(title) BETWEEN 11 AND 20 THEN '11-20'
+                WHEN LENGTH(title) BETWEEN 21 AND 30 THEN '21-30'
+                WHEN LENGTH(title) BETWEEN 31 AND 40 THEN '31-40'
+                WHEN LENGTH(title) BETWEEN 41 AND 50 THEN '41-50'
+                WHEN LENGTH(title) BETWEEN 51 AND 60 THEN '51-60'
+                WHEN LENGTH(title) BETWEEN 61 AND 70 THEN '61-70'
+                WHEN LENGTH(title) BETWEEN 71 AND 80 THEN '71-80'
+                WHEN LENGTH(title) BETWEEN 81 AND 90 THEN '81-90'
+                WHEN LENGTH(title) BETWEEN 91 AND 100 THEN '91-100'
+                ELSE 'Others'
+            END AS title_length_range,
+            ROUND(AVG(views), 1) AS rounded_average_views
+        FROM
+            YT_VIDEO_STATS
+        GROUP BY
+            CASE
+                WHEN LENGTH(title) BETWEEN 1 AND 10 THEN '1-10'
+                WHEN LENGTH(title) BETWEEN 11 AND 20 THEN '11-20'
+                WHEN LENGTH(title) BETWEEN 21 AND 30 THEN '21-30'
+                WHEN LENGTH(title) BETWEEN 31 AND 40 THEN '31-40'
+                WHEN LENGTH(title) BETWEEN 41 AND 50 THEN '41-50'
+                WHEN LENGTH(title) BETWEEN 51 AND 60 THEN '51-60'
+                WHEN LENGTH(title) BETWEEN 61 AND 70 THEN '61-70'
+                WHEN LENGTH(title) BETWEEN 71 AND 80 THEN '71-80'
+                WHEN LENGTH(title) BETWEEN 81 AND 90 THEN '81-90'
+                WHEN LENGTH(title) BETWEEN 91 AND 100 THEN '91-100'
+                -- Add more ranges as needed
+                ELSE 'Others'
+            END
+        ORDER BY
+            MIN(LENGTH(title)) -- Order by the minimum length in each range
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Title Length Range: ' || r.title_length_range || ', Rounded Average Views: ' || r.rounded_average_views);
+    END LOOP;
+END;
+
+/* Query Results
+Title Length Range: 1-10, Rounded Average Views: 13764076.8
+Title Length Range: 11-20, Rounded Average Views: 12731974.8
+Title Length Range: 21-30, Rounded Average Views: 13257445.4
+Title Length Range: 31-40, Rounded Average Views: 18590988.1
+Title Length Range: 41-50, Rounded Average Views: 13417749.4
+Title Length Range: 51-60, Rounded Average Views: 7706869.1
+Title Length Range: 61-70, Rounded Average Views: 3800990.7
+Title Length Range: 71-80, Rounded Average Views: 30580253.2
+Title Length Range: 81-90, Rounded Average Views: 2663505.2
+Title Length Range: 91-100, Rounded Average Views: 2122762.5
+*/
+
+/* Question: Does the urban population of a creator's country or the overall population have a greater influence on their success?*/
+/* COMPLETED BY: Nate */
+
+CREATE OR REPLACE PROCEDURE CalculateAverageSubscribersByCountry
+IS
+BEGIN
+    -- Query to group by country and calculate average subscribers
+    FOR r IN (
+        SELECT
+            country,
+            ROUND(AVG(subscribers), 1) AS average_subscribers,
+            MAX(population) AS country_population,
+            MAX(urban_pop) AS country_urban_pop
+        FROM
+            GLOBAL_YT_STATS
+        WHERE
+            country IS NOT NULL
+        GROUP BY
+            country
+        ORDER BY
+            country
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Country: ' || r.country || ', Average Subscribers: ' || r.average_subscribers ||
+                             ', Population: ' || r.country_population || ', Urban Population: ' || r.country_urban_pop);
+    END LOOP;
+END;
+
+/* Query Results
+Country: Afghanistan, Average Subscribers: 20400000, Population: 38041754, Urban Population: 9797273
+Country: Andorra, Average Subscribers: 15100000, Population: , Urban Population: 
+Country: Argentina, Average Subscribers: 24933333.3, Population: 44938712, Urban Population: 41339571
+Country: Australia, Average Subscribers: 19111111.1, Population: 25766605, Urban Population: 21844756
+Country: Bangladesh, Average Subscribers: 13900000, Population: 167310838, Urban Population: 60987417
+Country: Barbados, Average Subscribers: 41900000, Population: 287025, Urban Population: 89431
+Country: Brazil, Average Subscribers: 19706451.6, Population: 212559417, Urban Population: 183241641
+Country: Canada, Average Subscribers: 24260000, Population: 36991981, Urban Population: 30628482
+Country: Chile, Average Subscribers: 29066666.7, Population: 18952038, Urban Population: 16610135
+Country: China, Average Subscribers: 17600000, Population: 1397715000, Urban Population: 842933962
+Country: Colombia, Average Subscribers: 24045454.5, Population: 50339443, Urban Population: 40827302
+Country: Cuba, Average Subscribers: 46300000, Population: 11333483, Urban Population: 8739135
+Country: Ecuador, Average Subscribers: 13850000, Population: 17373662, Urban Population: 11116711
+Country: Egypt, Average Subscribers: 15500000, Population: 100388073, Urban Population: 42895824
+Country: El Salvador, Average Subscribers: 46100000, Population: 6453553, Urban Population: 4694702
+Country: Finland, Average Subscribers: 13200000, Population: 5520314, Urban Population: 4716888
+Country: France, Average Subscribers: 16780000, Population: 67059887, Urban Population: 54123364
+Country: Germany, Average Subscribers: 20320000, Population: 83132799, Urban Population: 64324835
+Country: India, Average Subscribers: 25834545.5, Population: 1366417754, Urban Population: 471031528
+Country: Indonesia, Average Subscribers: 19075000, Population: 270203917, Urban Population: 151509724
+Country: Iraq, Average Subscribers: 15100000, Population: 39309783, Urban Population: 27783368
+Country: Italy, Average Subscribers: 19700000, Population: 60297396, Urban Population: 42651966
+Country: Japan, Average Subscribers: 37820000, Population: 126226568, Urban Population: 115782416
+Country: Jordan, Average Subscribers: 22333333.3, Population: 10101694, Urban Population: 9213048
+Country: Kuwait, Average Subscribers: 30500000, Population: 4207083, Urban Population: 4207083
+Country: Latvia, Average Subscribers: 20200000, Population: 1912789, Urban Population: 1304943
+Country: Malaysia, Average Subscribers: 17700000, Population: 32447385, Urban Population: 24475766
+Country: Mexico, Average Subscribers: 18996969.7, Population: 126014024, Urban Population: 102626859
+Country: Morocco, Average Subscribers: 14500000, Population: 36910560, Urban Population: 22975026
+Country: Netherlands, Average Subscribers: 19366666.7, Population: 17332850, Urban Population: 15924729
+Country: Pakistan, Average Subscribers: 25900000, Population: 216565318, Urban Population: 79927762
+Country: Peru, Average Subscribers: 14400000, Population: 32510453, Urban Population: 25390339
+Country: Philippines, Average Subscribers: 20008333.3, Population: 108116615, Urban Population: 50975903
+Country: Russia, Average Subscribers: 24266666.7, Population: 144373535, Urban Population: 107683889
+Country: Samoa, Average Subscribers: 13100000, Population: 202506, Urban Population: 35588
+Country: Saudi Arabia, Average Subscribers: 19900000, Population: 34268528, Urban Population: 28807838
+Country: Singapore, Average Subscribers: 19900000, Population: 5703569, Urban Population: 5703569
+Country: South Korea, Average Subscribers: 28575000, Population: 51709098, Urban Population: 42106719
+Country: Spain, Average Subscribers: 17504545.5, Population: 47076781, Urban Population: 37927409
+Country: Sweden, Average Subscribers: 15750000, Population: 10285453, Urban Population: 9021165
+Country: Switzerland, Average Subscribers: 19400000, Population: 8574832, Urban Population: 6332428
+Country: Thailand, Average Subscribers: 21472222.2, Population: 69625582, Urban Population: 35294600
+Country: Turkey, Average Subscribers: 22900000, Population: 83429615, Urban Population: 63097818
+Country: Ukraine, Average Subscribers: 15700000, Population: 44385155, Urban Population: 30835699
+Country: United Arab Emirates, Average Subscribers: 21171428.6, Population: 9770529, Urban Population: 8479744
+Country: United Kingdom, Average Subscribers: 21359523.8, Population: 66834405, Urban Population: 55908316
+Country: United States, Average Subscribers: 23501634, Population: 328239523, Urban Population: 270663028
+Country: Venezuela, Average Subscribers: 31200000, Population: 28515829, Urban Population: 25162368
+Country: Vietnam, Average Subscribers: 15933333.3, Population: 96462106, Urban Population: 35332140
+*/
 

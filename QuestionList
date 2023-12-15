@@ -27,11 +27,11 @@ What is the relationship between video likes and length of video title? (Sean - 
 Knowledge from class: Select the character count of the video title and amount of likes for the corresponding video.
 Interest: Analyzing this data will provide a context to the amount of likes and the title of videos.
 
-Is there a realtionship between video title length and number of views?
+Is there a realtionship between video title length and number of views? (Nate - COMPLETED)
 Knowledge: Group video by the length of their titles and select and query for average the number of views for that title length.
 Interest: Give creators knowledge about what the ideal title length for a video is.
 
-Does the urban population of a creator's country or the overall population have a greater influence on their success?
+Does the urban population of a creator's country or the overall population have a greater influence on their success? (Nate - COMPLETED)
 Knowledge: Group creators by their country and find the average number of subscribers for creators in that country as well as each country's urban population and overall population.
 Interest: Provide creators with information about which type of audience would be most effective to appeal to.
 
